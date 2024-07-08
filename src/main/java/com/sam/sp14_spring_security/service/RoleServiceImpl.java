@@ -1,9 +1,8 @@
 package com.sam.sp14_spring_security.service;
 
-
+import com.sam.sp14_spring_security.JPA_Entity.Role;
 import com.sam.sp14_spring_security.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,4 +39,5 @@ public class RoleServiceImpl implements RoleService{
         return roleRepository.findRoleByUser(id);
     }
 }
+
 

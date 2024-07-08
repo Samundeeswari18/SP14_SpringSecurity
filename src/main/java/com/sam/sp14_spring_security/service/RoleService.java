@@ -1,6 +1,6 @@
 package com.sam.sp14_spring_security.service;
 
-import org.springframework.context.annotation.Role;
+import com.sam.sp14_spring_security.JPA_Entity.Role;
 
 import java.util.List;
 
@@ -10,4 +10,3 @@ public interface RoleService {
     public List<Role> getAllRoles();
     public List<Role> getRolesByUser(long id);
 }
-

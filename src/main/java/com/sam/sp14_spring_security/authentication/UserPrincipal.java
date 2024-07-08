@@ -1,18 +1,17 @@
 package com.sam.sp14_spring_security.authentication;
 
-
-import org.springframework.context.annotation.Role;
+import com.sam.sp14_spring_security.JPA_Entity.Role;
+import com.sam.sp14_spring_security.JPA_Entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
-    private final User user;
-    private final List<Role> roles;
+    private User user;
+    private List<Role> roles;
 
     public UserPrincipal(User user, List<Role> roles) {
         super();
@@ -22,7 +21,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.annotationType().getName())).collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override
@@ -32,7 +31,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user.getEmail();
     }
 
     @Override
@@ -55,5 +54,6 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 }
+
 
 

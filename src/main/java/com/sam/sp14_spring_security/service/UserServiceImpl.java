@@ -1,5 +1,7 @@
 package com.sam.sp14_spring_security.service;
 
+import com.sam.sp14_spring_security.JPA_Entity.Role;
+import com.sam.sp14_spring_security.JPA_Entity.User;
 import com.sam.sp14_spring_security.dataTransferObject.UserDTO;
 import com.sam.sp14_spring_security.repository.UserRepository;
 import com.sam.sp14_spring_security.service.RoleService;
@@ -9,11 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        /* return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),   mapRolesToAuthorities(user.getRoles()));*/
-        return new UserPrincipal(user, roleService.getRolesByUser(user.getId()));
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),   mapRolesToAuthorities(user.getRoles()));
+//        return new UserPrincipal(user, roleService.getRolesByUser(user.getId()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         User user = modelMapper.map(userDTO, User.class);
 
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(roleService.findRoleByRoleName("ROLE_USER")));
+        user.setRoles(Arrays.asList((Role) roleService.findRoleByRoleName("ROLE_USER")));
 
         userRepository.save(user);
     }

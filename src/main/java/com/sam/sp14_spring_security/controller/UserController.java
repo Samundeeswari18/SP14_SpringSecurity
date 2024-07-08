@@ -1,11 +1,11 @@
 package com.sam.sp14_spring_security.controller;
 
 import com.sam.sp14_spring_security.dataTransferObject.UserDTO;
-import com.sam.sp14_spring_security.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +23,10 @@ public class UserController {
     }
 
 
-    private UserServiceImpl userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
-    public UserController(UserServiceImpl userDetailsService) {
+    public UserController(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -52,7 +52,7 @@ public class UserController {
             log.warn("Wrong attempt");
             return "sign-up";
         }
-        userDetailsService.creat(userDTO);
+//        userDetailsService.creat(userDTO);
         return "confirmation";
     }
 
@@ -78,6 +78,5 @@ public class UserController {
     }
 
 }
-
 
 

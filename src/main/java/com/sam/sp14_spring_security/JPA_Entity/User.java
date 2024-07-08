@@ -1,5 +1,6 @@
 package com.sam.sp14_spring_security.JPA_Entity;
 
+import com.sam.sp14_spring_security.JPA_Entity.Role;
 import lombok.*;
 import jakarta.persistence.*;
 import java.util.Collection;
@@ -32,14 +33,6 @@ public class User {
     private String zip;
 
     private String password;
-
-//    public Collection<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Collection<Role> roles) {
-//        this.roles = roles;
-//    }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",

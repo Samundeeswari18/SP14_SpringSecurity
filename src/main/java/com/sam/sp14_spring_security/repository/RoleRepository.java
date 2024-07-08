@@ -1,6 +1,6 @@
 package com.sam.sp14_spring_security.repository;
 
-import org.springframework.context.annotation.Role;
+import com.sam.sp14_spring_security.JPA_Entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +15,3 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query(value = "select * from role where role.id= (select role_id from users_roles where user_id = :id)", nativeQuery = true)
     public List<Role> findRoleByUser(@Param("id") long id);
 }
-
-
-
